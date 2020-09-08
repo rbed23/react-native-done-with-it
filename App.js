@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation} from '@react-navigation/native';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Screen from './app/components/Screen'
 
 const Link = () => {
@@ -27,6 +30,11 @@ const TweetDetails = ({ route }) => (
   </Screen>
 )
 
+const Account = ({ route }) => (
+  <Screen>
+    <Text>Account</Text>
+  </Screen>
+)
 
 const Stack = createStackNavigator();
 const StackNavigator = () => (
@@ -52,11 +60,32 @@ const StackNavigator = () => (
   
   </Stack.Navigator>
 )
+
+const BottomTab = createBottomTabNavigator();
+const BottomTabNavigator = () => (
+  <BottomTab.Navigator
+    tabBarOptions={{
+      activeBackgroundColor: 'tomato',
+      activeTintColor: 'white',
+      inactiveBackgroundColor: "#eee",
+      inactiveTintColor: 'black',
+    }}>
+    <BottomTab.Screen 
+      component={Tweets}
+      name="feed"
+      options={{
+        tabBarIcon: ( { color, size }) => <MaterialCommunityIcons name='home' size={size} color={color}/>
+      }} />
+    <BottomTab.Screen name="acct" component={Account} />
+  </BottomTab.Navigator>
+)
+
+
 export default function App() {
 
   return (
     <NavigationContainer>
-      <StackNavigator />
+      <BottomTabNavigator />
     </NavigationContainer>
   );
 }
