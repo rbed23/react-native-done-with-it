@@ -2,8 +2,9 @@ import React from 'react';
 import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import colors from '../globals/colors';
 import AppButton from '../components/AppButton';
+import routes from '../navigation/routes';
 
-export default function Home() {
+export default function Home({ navigation }) {
 
     return (
         <ImageBackground 
@@ -25,15 +26,17 @@ export default function Home() {
                 <View style={styles.basementItem}>
                     <AppButton
                         title="LOGIN"
-                        color={colors.primary}/>
+                        color={colors.primary}
+                        onPress={()=>navigation.navigate(routes.LOGIN)}
+                    />
                 </View>
                 <View style={styles.basementItem}>
                     <AppButton
                         title="REGISTER"
-                        color={colors.secondary}/>
+                        color={colors.secondary}
+                        onPress={()=>navigation.navigate(routes.REGISTER)}
+                    />
                 </View>
-
-
         </ImageBackground>
     );
 }
@@ -69,5 +72,4 @@ const styles=StyleSheet.create({
         fontSize: 18,
         top: 50
     },
-
 })

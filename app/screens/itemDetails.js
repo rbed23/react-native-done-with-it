@@ -5,18 +5,19 @@ import colors from '../globals/colors';
 import ListItem from '../components/ListItem';
 import AppText from '../components/AppText';
 
-function ItemDetails(props) {
+function ItemDetails({ route }) {
+    const listing = route.params;
 
     return (
         <View style={styles.container}>
             <Image 
                 style={styles.image}
-                source={props.image}/>
+                source={listing.image}/>
             <AppText style={styles.text}>
-                {props.title}
+                {listing.title}
             </AppText>
             <AppText style={styles.subText}>
-                {props.subTitle}
+                ${listing.price}
             </AppText>
             <ListItem 
                 image={require('../assets/mosh.jpg')}

@@ -5,7 +5,9 @@ import Screen from '../components/Screen';
 import Card from '../components/Card';
 import colors from '../globals/colors';
 
-export default function Listings() {
+import routes from '../navigation/routes';
+
+export default function Listings({ navigation }) {
 
     const initialListings = [{
         id: 1,
@@ -28,12 +30,13 @@ export default function Listings() {
             data={listings}
             keyExtractor={listing => listing.id.toString()}
             renderItem={({ item }) =>
-                <Card
-                    title={item.title}
-                    subTitle={"$" + item.price}
-                    imagePath={item.image}
-                />
-                    }
+                    <Card
+                        title={item.title}
+                        subTitle={"$" + item.price}
+                        imagePath={item.image}
+                        onPress={()=>navigation.navigate(routes.LISTING_DETAILS, item)}
+                    />
+            }
         />
         </Screen>
     )
@@ -42,6 +45,8 @@ export default function Listings() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.lightGray,
-        padding: 20,
+        padding: 10,
+        marginLeft: 10,
+        marginRight: 10,
     }
 })

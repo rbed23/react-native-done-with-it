@@ -7,8 +7,9 @@ import Icon from '../components/Icon';
 import ListItemSeparator from '../components/ListItemSeparator'
 
 import colors from '../globals/colors';
+import routes from '../navigation/routes';
 
-export default function Account() {
+export default function Account({ navigation }) {
 
     const menuItems = [
         {
@@ -17,7 +18,7 @@ export default function Account() {
                 name: 'format-list-bulleted',
                 backgroundColor: colors.primary,
             },
-            onPress: "()=>console.log('nothing')",
+            targetScreen: ()=>console.log('clicked on My Listings'),
         },
         {
             title: "My Messages",
@@ -25,7 +26,7 @@ export default function Account() {
                 name: 'email',
                 backgroundColor: colors.secondary,
             },
-            onPress: "()=>console.log('nothing')",
+            targetScreen: () => navigation.navigate(routes.MESSAGES),
         }
     ]
     return (
@@ -34,7 +35,7 @@ export default function Account() {
                 title="Mosh"
                 subTitle="email"
                 image={require('../assets/mosh.jpg')}
-                onPress={()=>console.log('nothing')}
+                onPress={()=>console.log('clicked on Mosh')}
             />
 
             <View style={styles.section}>
@@ -52,6 +53,7 @@ export default function Account() {
                                 size={50}
                             />
                         }
+                        onPress={item.targetScreen}
                     />
                 }
                 ItemSeparatorComponent={ListItemSeparator}
@@ -69,6 +71,7 @@ export default function Account() {
                                 size={50}
                             />
                         }
+                        onPress={()=>console.log('clicked on Logout')}
                     />
                 
             </View>
