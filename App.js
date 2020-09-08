@@ -37,7 +37,7 @@ const Account = ({ route }) => (
 )
 
 const Stack = createStackNavigator();
-const StackNavigator = () => (
+const FeedNavigator = () => (
   <Stack.Navigator 
     initialRouteName="Tweets"
     screenOptions={{
@@ -61,6 +61,14 @@ const StackNavigator = () => (
   </Stack.Navigator>
 )
 
+const AccountNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      component={Link}
+      name="LInk"/>
+  </Stack.Navigator>
+)
+
 const BottomTab = createBottomTabNavigator();
 const BottomTabNavigator = () => (
   <BottomTab.Navigator
@@ -71,12 +79,14 @@ const BottomTabNavigator = () => (
       inactiveTintColor: 'black',
     }}>
     <BottomTab.Screen 
-      component={Tweets}
+      component={FeedNavigator}
       name="feed"
       options={{
         tabBarIcon: ( { color, size }) => <MaterialCommunityIcons name='home' size={size} color={color}/>
       }} />
-    <BottomTab.Screen name="acct" component={Account} />
+    <BottomTab.Screen
+      component={AccountNavigator}
+      name="acct" />
   </BottomTab.Navigator>
 )
 
