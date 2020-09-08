@@ -1,25 +1,33 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
-import colors from '../app/globals/colors';
-export default function Home() {
-    console.log(colors.primary)
+import { StyleSheet, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import colors from '../globals/colors';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+
+export default function Items() {
     return (
-    <View style={styles.container}>
-        <View>
+        <View style={styles.container}>
             <View style={styles.headerIconArea}>
-                <View style={[
-                    styles.headerIcons, 
-                    {backgroundColor: colors.primary}
-                ]}/>
-                <View style={[styles.headerIcons, {backgroundColor: colors.secondary}]}/>
+                <TouchableHighlight style={[
+                        styles.headerIcons,
+                        {backgroundColor: colors.primary}]}>
+                    <MaterialCommunityIcons
+                        name='close'
+                        size={60}
+                    />
+                </TouchableHighlight>
+                <TouchableHighlight style={[
+                        styles.headerIcons,
+                        {backgroundColor: colors.secondary}]}>
+                    <MaterialCommunityIcons
+                        name='trash-can-outline'
+                        size={60}
+                    />
+                </TouchableHighlight>
             </View>
-        </View>
-        <View style={styles.itemArea}>
             <Image 
                 style={styles.item}
                 source={require('../assets/chair.jpg')}
             />
-        </View>
     </View>
     );
 }
@@ -38,16 +46,13 @@ const styles=StyleSheet.create({
         margin: 20,
     },
     headerIcons: {
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
     },
     item: {
         width: "100%",
         height: "100%",
         resizeMode: 'contain',
+        flex: 1
     },
-    itemArea: {
-        flex: 1,
-    },
-
 })

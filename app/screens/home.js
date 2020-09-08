@@ -1,13 +1,15 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
-import colors from '../app/globals/colors';
+import colors from '../globals/colors';
+import AppButton from '../components/AppButton';
 
 export default function Home() {
 
     return (
         <ImageBackground 
             source={require('../assets/background.jpg')}    
-            style={styles.background}>
+            style={styles.background}
+            blurRadius={2}>
             
                 <View style={styles.logo}>
                     <Image
@@ -20,17 +22,16 @@ export default function Home() {
                     </Text>
                 </View>
 
-                <View 
-                    style={[
-                        styles.basementItem,
-                        {backgroundColor: colors.primary}
-                    ]} />
-                <View 
-                    style={[
-                        styles.basementItem,
-                        {backgroundColor: colors.secondary}
-                    ]} />
-
+                <View style={styles.basementItem}>
+                    <AppButton
+                        title="LOGIN"
+                        color={colors.primary}/>
+                </View>
+                <View style={styles.basementItem}>
+                    <AppButton
+                        title="REGISTER"
+                        color={colors.secondary}/>
+                </View>
 
 
         </ImageBackground>
@@ -42,10 +43,18 @@ const styles=StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
+        width: '100%',
     },
     basementItem: {
-        width: "100%",
-        height: 80
+        width: "90%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20
+    },
+    basementText: {
+        color: colors.white,
+        fontSize: 25,
+        fontWeight: 'bold'
     },
     logo: {
         position: 'absolute',
@@ -58,7 +67,7 @@ const styles=StyleSheet.create({
     },
     logoTagLine : {
         fontSize: 18,
-        top: 20
+        top: 50
     },
 
 })
