@@ -1,21 +1,26 @@
 import React from 'react'
-import { StyleSheet, Picker } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import * as Yup from 'yup';
 
-import Screen from '../components/Screen'
 import { AppForm, AppFormField, AppFormPicker, AppFormSubmitButton } from '../components/forms';
 import CategoryPickerItem from '../components/CategoryPickerItem';
+import Screen from '../components/Screen'
+import AppFormImagePicker from '../components/forms/AppFormImagePicker';
+import useLocation from '../hooks/useLocation';
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(5).label('title'),
     price: Yup.string().required().min(1).max(10000).label('price'),
     description: Yup.string().label('description'),
-    category: Yup.string().required().nullable().label('category')
+    category: Yup.string().required().nullable().label('category'),
+    images: Yup.array().min(1, "Please select at least 1 image."),
 });
 
 
 export default function ListingEdit() {
+
+    const location = useLocation();
 
     const categories = [
         {iconColor: '#fc5c65', iconName: 'floor-lamp', label: 'Furniture', value: 1},
@@ -33,17 +38,24 @@ export default function ListingEdit() {
 
     return (
         <Screen style={styles.container}>
-                        
+            
             <AppForm
-                initialValues={{title: '', price: '', category: null, description: ''}}
-                onSubmit={vals=>console.log(vals)}
+                initialValues={{
+                    images: [],
+                    title: '',
+                    price: '',
+                    category: null,
+                    description: ''
+                }}
+                onSubmit={vals=>console.log(location)}
                 validationSchema={validationSchema}
             >
+                <AppFormImagePicker name='images' />
+
                 <AppFormField 
                     autoCapitalize='words'
                     autoCorrect={false}
                     maxLength={255}
-                    //icon='account'
                     name='title'
                     placeholder='Title'
                 />
@@ -77,6 +89,7 @@ export default function ListingEdit() {
                 <AppFormSubmitButton 
                     title="Post"
                 />
+
             </AppForm>            
             
         </Screen>

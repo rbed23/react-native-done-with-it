@@ -1,5 +1,4 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 
 import { useFormikContext } from 'formik';
 import AppButton from '../AppButton';
@@ -18,5 +17,3 @@ export default function AppSubmitButton({ title }) {
         />
     )
 }
-
-const styles = StyleSheet.create({})

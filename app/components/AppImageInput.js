@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Alert } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, Image, Alert } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+
 import colors from '../globals/colors';
-import Screen from './Screen';
+
 
 function AppImageInput({ imageUri, onChangeImage }) {
 
@@ -13,8 +15,8 @@ function AppImageInput({ imageUri, onChangeImage }) {
     }, []);
 
     const requestPermission = async () => {
-        const result = Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA, Permissions.LOCATION)
-        if (!result.granted)
+        const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA, Permissions.LOCATION)
+        if (!granted)
           alert('You need to enable permissions')
       }
       
@@ -25,8 +27,6 @@ function AppImageInput({ imageUri, onChangeImage }) {
           { text: 'No' },
       ])
     }
-
-
 
     const selectedImage = async () => {
         try {
@@ -42,18 +42,18 @@ function AppImageInput({ imageUri, onChangeImage }) {
       }
     
     return (
-      <Screen style={styles.container}>
-        <TouchableOpacity style={styles.selector} onPress={handlePress}>
-        { imageUri && <Image source={{uri: imageUri}} style={styles.selectedImage} /> }
-        { !imageUri && (
+      <TouchableWithoutFeedback onPress={handlePress}>
+        <View style={[styles.container, styles.selector]}>
+          { !imageUri && (
             <MaterialCommunityIcons 
-                color={colors.mediumGray}
-                name='camera'
-                size={50}
+              color={colors.mediumGray}
+              name='camera'
+              size={50}
             />
-            ) }
-        </TouchableOpacity>
-      </Screen>
+            )}
+          { imageUri && <Image source={{uri: imageUri}} style={styles.selectedImage} /> }
+        </View>
+      </TouchableWithoutFeedback>
     );
 }
 
@@ -67,16 +67,14 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         height: 100,
         justifyContent: 'center',
-        marginLeft: 10,
+        marginRight: 10,
         marginTop: 10,
+        overflow: 'hidden',
         width: 100,
     },
     selectedImage: {
-        borderRadius: 20,
-        height: 100,
-        width: 100,
-        marginLeft: 10,
-        marginTop: 10,
+        height: '100%',
+        width: '100%',
     }
 });
 

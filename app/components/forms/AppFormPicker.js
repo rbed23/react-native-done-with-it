@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Button, Modal, TouchableWithoutFeedback, FlatList } from 'react-native'
+import { StyleSheet } from 'react-native'
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useFormikContext } from 'formik';
 
 import defaultStyles from '../../globals/styles';
