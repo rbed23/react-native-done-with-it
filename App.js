@@ -1,13 +1,23 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer, useNavigation} from '@react-navigation/native';
 import Screen from './app/components/Screen'
 
-const Tweets = () => (
+const Link = () => {
+  const navigation = useNavigation();
+  
+  return (
+    <Button 
+      title='click'
+      onPress={()=> navigation.navigate('TweetDetails')}/>
+  )}
+
+const Tweets = ({ navigation }) => (
   <Screen>
     <Text>Tweets</Text>
+    <Link />
   </Screen>
 )
 
