@@ -4,23 +4,21 @@ import AppText from './AppText';
 import colors from '../globals/colors'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-function Card(props) {
-
+function Card({ onPress, imageUrl, title, subTitle }) {
+    console.log('----------------------')
+    console.log({ uri: imageUrl });
     return (
-        <TouchableWithoutFeedback onPress={props.onPress}>
-            <View 
-                onPress={props.onPress}
-                style={styles.card}
-            >
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={styles.card}>
                 <Image
                     style={styles.image}
-                    source={props.imagePath}
+                    source={{ uri: imageUrl }}
                 />
                 <AppText style={styles.title} numberOfLines={1}>
-                    {props.title}
+                    {title}
                 </AppText>
                 <AppText style={styles.subtitle} numberOfLines={3}>
-                    {props.subTitle}
+                    {subTitle}
                 </AppText>
             </View>
         </TouchableWithoutFeedback>
