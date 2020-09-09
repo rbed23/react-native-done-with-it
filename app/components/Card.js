@@ -5,8 +5,7 @@ import colors from '../globals/colors'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 function Card({ onPress, imageUrl, title, subTitle }) {
-    console.log('----------------------')
-    console.log({ uri: imageUrl });
+
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={styles.card}>
