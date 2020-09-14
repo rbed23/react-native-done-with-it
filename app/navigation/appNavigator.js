@@ -9,7 +9,6 @@ import ListingEdit from '../screens/listingEdit';
 import FeedNavigator from './feedNavigator';
 import AcctNavigator from './acctNavigator';
 import EditListingIcon from '../icons/editListing';
-import navigationTheme from './navigationTheme';
 
 const BottomTab = createBottomTabNavigator();
 

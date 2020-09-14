@@ -48,6 +48,7 @@ export default function Listings({ navigation }) {
                 renderItem={({ item }) =>
                     <Card
                         imageUrl={item.images[0].url}
+                        thumbnailUrl={item.images[0].thumbnailUrl}
                         onPress={()=>navigation.navigate(routes.LISTING_DETAILS, item)}
                         subTitle={"$" + item.price}
                         title={item.title}
