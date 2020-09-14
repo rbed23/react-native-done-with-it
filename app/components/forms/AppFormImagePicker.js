@@ -10,6 +10,7 @@ export default function AppFormImagePicker({ name }) {
     const { setFieldValue, values, errors, touched } = useFormikContext();    
     const imageUris = values[name]
 
+
     const handleAdd = uri => {
       setFieldValue(name, [...imageUris, uri]);
     }

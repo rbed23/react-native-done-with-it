@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 
 import * as Yup from 'yup';
@@ -7,37 +7,59 @@ import { AppForm, AppFormField, AppFormPicker, AppFormSubmitButton } from '../co
 import CategoryPickerItem from '../components/CategoryPickerItem';
 import Screen from '../components/Screen'
 import AppFormImagePicker from '../components/forms/AppFormImagePicker';
+
+import listingsApi from '../api/listings';
+
 import useLocation from '../hooks/useLocation';
+import useApiCall from '../hooks/useApi';
+import Upload from './upload';
+
 
 const validationSchema = Yup.object().shape({
-    title: Yup.string().required().min(5).label('title'),
-    price: Yup.string().required().min(1).max(10000).label('price'),
-    description: Yup.string().label('description'),
     category: Yup.string().required().nullable().label('category'),
+    description: Yup.string().label('description'),
     images: Yup.array().min(1, "Please select at least 1 image."),
+    price: Yup.string().required().min(1).max(10000).label('price'),
+    title: Yup.string().required().min(5).label('title'),
 });
 
 
 export default function ListingEdit() {
-
     const location = useLocation();
+    const [uploadVisible, setUploadVisible] = useState(false);
+    const [progress, setProgress] = useState(0);
 
-    const categories = [
-        {iconColor: '#fc5c65', iconName: 'floor-lamp', label: 'Furniture', value: 1},
-        {iconColor: '#2bcbba', iconName: 'login', label: 'Clothing', value: 2},
-        {iconColor: 'gold', iconName: 'calculator', label: 'Electronics', value: 3},
-        {iconColor: 'gold', iconName: 'food', label: 'Kitchen Supplies', value: 4},
-        {iconColor: '#fd9644', iconName: 'car', label: 'Cars', value: 5},
-        {iconColor: '#fed330', iconName: 'camera', label: 'Cameras', value: 6},
-        {iconColor: '#26de81', iconName: 'cards', label: 'Games', value: 7},
-        {iconColor: '#45aaf2', iconName: 'basketball', label: 'Sports', value: 8},
-        {iconColor: '#4b7bec', iconName: 'headphones', label: 'Movies & Music', value: 9},
-        {iconColor: 'gold', iconName: 'book', label: 'Books', value: 10},
-        {iconColor: 'gray', iconName: 'hanger', label: 'Other', value: 11},
-    ]
+    const { 
+        data: categories,
+        error,
+        loading,
+        dataRequest: loadCategories } = useApiCall(listingsApi.getCategories);
+    
+    
+    useEffect(() => {
+        loadCategories();
+    }, [])
+
+
+    const handleSubmit = async (listing) => {
+        setProgress(0);
+        setUploadVisible(true);
+
+        const result = await listingsApi.postListing(
+            {...listing, location},
+            (progress) => setProgress(progress)
+        );
+
+        setUploadVisible(true);
+
+        if(!result.ok) return alert('Could not save the listing.');
+        alert("Success");
+    }
 
     return (
         <Screen style={styles.container}>
+            
+            <Upload progress={progress} visible={uploadVisible} />
             
             <AppForm
                 initialValues={{
@@ -47,9 +69,10 @@ export default function ListingEdit() {
                     category: null,
                     description: ''
                 }}
-                onSubmit={vals=>console.log(location)}
+                onSubmit={handleSubmit}
                 validationSchema={validationSchema}
             >
+
                 <AppFormImagePicker name='images' />
 
                 <AppFormField 
@@ -86,7 +109,7 @@ export default function ListingEdit() {
                     placeholder="description"
                 />
 
-                <AppFormSubmitButton 
+                <AppFormSubmitButton
                     title="Post"
                 />
 

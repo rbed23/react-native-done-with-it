@@ -38,6 +38,7 @@ export default function Listings({ navigation }) {
             )}
 
             <AppActivityIndicator
+                action="loading"
                 visible={loading}
             />
 

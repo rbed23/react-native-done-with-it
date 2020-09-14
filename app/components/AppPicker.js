@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Button, Modal } from 'react-native'
+import { StyleSheet, View, Button, Modal, TouchableWithoutFeedback, FlatList } from 'react-native'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import defaultStyles from '../globals/styles';
 import AppText from './AppText';
-import { TouchableWithoutFeedback, FlatList } from 'react-native-gesture-handler';
 import Screen from './Screen';
 import PickerItem from './PickerItem';
 
@@ -28,7 +27,7 @@ export default function AppPicker( { fieldWidth, icon, items, numberOfColumns=1,
             />}
 
             { selectedItem ? (
-                <AppText style={styles.text}>{selectedItem.label}</AppText>
+                <AppText style={styles.text}>{selectedItem.name}</AppText>
             ) : (
                 <AppText style={styles.placeholder}>{placeholder}</AppText>
             )}
@@ -46,7 +45,7 @@ export default function AppPicker( { fieldWidth, icon, items, numberOfColumns=1,
                 <Button title='Close' onPress={()=>setModalVisible(false)}/>
                 <FlatList
                     data={items}
-                    keyExtractor={item=>item.value.toString()}
+                    keyExtractor={item=>item.id.toString()}
                     numColumns={numberOfColumns}
                     renderItem={({item})=> 
                         <PickerItemComponent

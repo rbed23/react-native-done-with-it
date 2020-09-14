@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+
 import { Formik } from 'formik'
 
 export default function AppForm( { children, initialValues, onSubmit, validationSchema }) {
@@ -18,5 +18,3 @@ export default function AppForm( { children, initialValues, onSubmit, validation
         </Formik>
     )
 }
-
-const styles = StyleSheet.create({})
