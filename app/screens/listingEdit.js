@@ -41,7 +41,7 @@ export default function ListingEdit() {
     }, [])
 
 
-    const handleSubmit = async (listing) => {
+    const handleSubmit = async (listing, { resetForm }) => {
         setProgress(0);
         setUploadVisible(true);
 
@@ -52,14 +52,18 @@ export default function ListingEdit() {
 
         setUploadVisible(true);
 
-        if(!result.ok) return alert('Could not save the listing.');
-        alert("Success");
+        if(!result.ok) {
+            setUploadVisible(false);
+            return alert('Could not save the listing.');
+        }
+
+        resetForm();
     }
 
     return (
         <Screen style={styles.container}>
             
-            <Upload progress={progress} visible={uploadVisible} />
+            <Upload onDone={()=>setUploadVisible(false)} progress={progress} visible={uploadVisible} />
             
             <AppForm
                 initialValues={{
@@ -97,7 +101,7 @@ export default function ListingEdit() {
                     name='category'
                     numberOfColumns={3}
                     PickerItemComponent={CategoryPickerItem}
-                    placeholder="category"
+                    placeholder="Category"
                 />
                 
                 <AppFormField 

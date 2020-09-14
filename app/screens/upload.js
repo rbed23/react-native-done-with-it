@@ -6,15 +6,24 @@ import * as Progress from 'react-native-progress';
 import AppActivityIndicator from '../components/AppActivityIndicator';
 import colors from '../globals/colors';
 
-function Upload({ progress = 0, visible = false }) {
+function Upload({ onDone, progress = 0,visible = false }) {
     return (
         <Modal visible={visible}>
             <View style={styles.container}>
-                <Progress.Bar
-                    color={colors.primary}
-                    progress={progress}
-                    width={200}
-                />
+                { progress < 1 ? (
+                    <Progress.Bar
+                        color={colors.primary}
+                        progress={progress}
+                        width={200}
+                    /> ) : (
+                    <AppActivityIndicator 
+                        action='done'
+                        loop={false}
+                        onAnimationFinish={onDone}
+                        visible
+                    />
+                    )
+                }
             </View>
         </Modal>
     );

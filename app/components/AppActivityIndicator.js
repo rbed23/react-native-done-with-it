@@ -3,7 +3,7 @@ import { Image, View, Text } from 'react-native';
 
 import LottieView from 'lottie-react-native';
 
-function AppActivityIndicator({ action, visible = false }) {
+function AppActivityIndicator({ action, loop, onAnimationFinish, visible = false }) {
     if (!visible) return null;
     
     if (action == 'loading') {
@@ -19,12 +19,13 @@ function AppActivityIndicator({ action, visible = false }) {
             </View>
         );
     }
-    if (action == 'uploading') {
+    if (action == 'done') {
         return (
             <LottieView
                 autoPlay
                 autoSize
-                loop
+                loop={loop}
+                onAnimationFinish={onAnimationFinish}
                 source={require('../assets/animations/done.json')}
             />
         )
