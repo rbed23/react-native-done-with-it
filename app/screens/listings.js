@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList, View } from 'react-native'
 
 import AppActivityIndicator from '../components/AppActivityIndicator';
 import AppButton from '../components/AppButton';
@@ -10,35 +10,29 @@ import Screen from '../components/Screen';
 import colors from '../globals/colors';
 import routes from '../navigation/routes';
 import listingsApi from '../api/listings';
+import useApiCall from '../hooks/useApi';
 
 
 export default function Listings({ navigation }) {
-
-    const [error, setError] = useState(false);
-    const [listings, setListings] = useState([]);
-    const [loading, setLoading] = useState(false);
-
+    //const getListingsResponse = useApiCall(listingsApi.getListings);
+    const { 
+        data: listings,
+        error,
+        loading,
+        dataRequest: loadListings } = useApiCall(listingsApi.getListings);
+    
+    
     useEffect(() => {
         loadListings();
     }, [])
-    
-    const loadListings = async () => {
-        setLoading(true);
-        const response = await listingsApi.getListings();
-        setLoading(false);
 
-        if (!response.ok) return setError(true);
-
-        setError(false);
-        setListings(response.data);
-    }
 
     return (
         <Screen style={styles.container}>
 
             { error && (
                 <>
-                <AppText>Couldnt Retrieve the Listings...\n\n</AppText>
+                <AppText>Couldnt Retrieve the Listings...</AppText>
                 <AppButton title="Retry" onPress={loadListings} />
                 </>
             )}
