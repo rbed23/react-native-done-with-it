@@ -9,10 +9,16 @@ import ListItemSeparator from '../components/ListItemSeparator'
 import colors from '../globals/colors';
 import routes from '../navigation/routes';
 import AuthContext from '../auth/context';
+import authStorage from '../auth/storage';
 
 export default function Account({ navigation }) {
 
     const { user, setUser } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        setUser(null);
+        authStorage.removeToken();
+    }
 
     const menuItems = [
         {
@@ -78,7 +84,7 @@ export default function Account({ navigation }) {
                                 size={50}
                             />
                         }
-                        onPress={()=>setUser(null)}
+                        onPress={handleLogout}
                     />
                 
             </View>
