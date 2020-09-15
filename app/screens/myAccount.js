@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, FlatList, View } from 'react-native'
 
 import Screen from '../components/Screen'
@@ -8,8 +8,11 @@ import ListItemSeparator from '../components/ListItemSeparator'
 
 import colors from '../globals/colors';
 import routes from '../navigation/routes';
+import AuthContext from '../auth/context';
 
 export default function Account({ navigation }) {
+
+    const { user, setUser } = useContext(AuthContext);
 
     const menuItems = [
         {
@@ -31,36 +34,40 @@ export default function Account({ navigation }) {
     ]
     return (
         <Screen style={styles.container}>
+            <View style={styles.section}>
             <ListItem
-                title="Mosh"
-                subTitle="email"
+                title={user.name}
+                subTitle={user.email}
                 image={require('../assets/mosh.jpg')}
                 onPress={()=>console.log('clicked on Mosh')}
             />
+            </View>
 
-            <View style={styles.section}>
+            <View style={{marginTop: 20}}>
             <FlatList
                 data={menuItems}
                 keyExtractor={menuItem => menuItem.title}
                 renderItem={({ item })=>
+                <View style={styles.section}>
                     <ListItem
                         title={item.title}
                         IconComponent={
                             <Icon
-                                name={item.icon.name}
+                            name={item.icon.name}
                                 backgroundColor={item.icon.backgroundColor}
                                 color={colors.white}
                                 size={50}
+                                />
+                            }
+                            onPress={item.targetScreen}
                             />
-                        }
-                        onPress={item.targetScreen}
-                    />
+                        </View>
                 }
                 ItemSeparatorComponent={ListItemSeparator}
-            />
+                />
             </View>
 
-            <View style={styles.section}>
+            <View style={[styles.section, {marginTop:20}]}>
                 <ListItem
                         title="Logout"
                         IconComponent={
@@ -71,7 +78,7 @@ export default function Account({ navigation }) {
                                 size={50}
                             />
                         }
-                        onPress={()=>console.log('clicked on Logout')}
+                        onPress={()=>setUser(null)}
                     />
                 
             </View>
@@ -81,10 +88,10 @@ export default function Account({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.lightGray
+        backgroundColor: colors.lightGray,
+        flex: 1,
     },
     section: {
-        marginTop: 20,
         backgroundColor: colors.white,
     }
 })
