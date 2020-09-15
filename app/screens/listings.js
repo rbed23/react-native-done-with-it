@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import { StyleSheet, FlatList, View } from 'react-native'
 
 import AppActivityIndicator from '../components/AppActivityIndicator';
