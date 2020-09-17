@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import Screen from '../components/Screen'
 import { AppFormErrorMssg, AppForm, AppFormField, AppFormSubmitButton } from '../components/forms';
 import useAuth from '../hooks/useAuth';
-import authApi from '../api/auth';
+import usersApi from '../api/users';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required().label('Name'),
@@ -23,16 +23,21 @@ export default function Register(props) {
     const [registrationError, setRegistrationError] = useState(false);
     const [errorMssg, setErrorMssg] = useState();
     
-    const handleSubmit = async (registration) => {
-        const result = await authApi.register(registration.name, registration.email, registration.password)
+    const handleSubmit = async (registrationInfo) => {
+        const result = await usersApi.register(registrationInfo)
         if (!result.ok) {
-            setRegistrationError(true);
-            setErrorMssg(result.data.error);
+            if (result.data) {
+                setRegistrationError(true);
+                setErrorMssg(result.data.error);
+            } else {
+                setErrorMssg("An unexpected error occurred.")
+                console.log(result);
+            }
             return null;
         }
 
-        const token = await authApi.login(result.data.email, result.data.password)
         setRegistrationError(false);
+        const token = await authApi.login(result.data.email, result.data.password)
         login(token.data);     
     }
 
