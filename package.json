@@ -39,7 +39,8 @@
     "react-native-screens": "~2.2.0",
     "react-native-web": "~0.11.7",
     "yup": "^0.29.1",
-    "expo-secure-store": "~8.1.0"
+    "expo-secure-store": "~8.1.0",
+    "expo-notifications": "~0.1.1"
   },
   "devDependencies": {
     "react-devtools": "^3.6.3",

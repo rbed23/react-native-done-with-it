@@ -10,33 +10,26 @@ import OfflineNotice from './app/components/OfflineNotice';
 import AuthContext from './app/auth/context';
 import authStorage from './app/auth/storage';
 import { navigationRef } from './app/navigation/rootNavigation';
+import { Button } from 'react-native';
+import Screen from './app/components/Screen';
+import { Notifications } from 'expo';
 
 export default function App() {
 
-  const [user, setUser] = useState();
-  const [isReady, setIsReady] = useState(false);
-
-  const restoreUser = async () => {
-    const user = await authStorage.getUser();
-    return (user) ? setUser(user) : null;
+  const showNotifications = () => {
+    Notifications.presentLocalNotificationAsync({
+      title: "Congratulations",
+      body: "Your order was placed",
+      data: {
+        _displayInForeground: true,
+      }
+    });
+    console.log('notification sent')
   };
 
-  
-  if (!isReady)
-    return (
-      <AppLoading
-        startAsync={restoreUser}
-        onFinish={() => setIsReady(true)}
-      />
-    );
-
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <OfflineNotice />
-      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-        { user ? <AppNavigator /> : <AuthNavigator /> }
-      </NavigationContainer>
-
-    </AuthContext.Provider>
+    <Screen>
+      <Button title="Tap" onPress={showNotifications} />
+    </Screen>
   );
 }
