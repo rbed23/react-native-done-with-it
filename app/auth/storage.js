@@ -5,7 +5,6 @@ const key = "authToken"
 
 const storeToken = async (authToken) => {
     try {
-        console.log("storing token", authToken)
         await SecureStore.setItemAsync(key, authToken)
     } catch (error) {
         console.log("Error storing auth token", error)
@@ -38,4 +37,5 @@ export default {
     storeToken,
     removeToken,
     getUser,
+    getToken,
 }
