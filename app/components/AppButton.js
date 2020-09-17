@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        elevation: 10,
+        elevation: 0,
     },
     appButtonText: {
         color: defaultStyles.colors.white,

@@ -28,35 +28,38 @@ export default function Listings({ navigation }) {
 
 
     return (
-        <Screen style={styles.container}>
-
-            { error && (
-                <>
-                <AppText>Couldnt Retrieve the Listings...</AppText>
-                <AppButton title="Retry" onPress={loadListings} />
-                </>
-            )}
-
+        <>
             <AppActivityIndicator
                 action="loading"
                 visible={loading}
             />
 
-            <FlatList
-                data={listings}
-                keyExtractor={listing => listing.id.toString()}
-                renderItem={({ item }) =>
-                    <Card
-                        imageUrl={item.images[0].url}
-                        thumbnailUrl={item.images[0].thumbnailUrl}
-                        onPress={()=>navigation.navigate(routes.LISTING_DETAILS, item)}
-                        subTitle={"$" + item.price}
-                        title={item.title}
-                    />
-                }
-            />
+            <Screen style={styles.container}>
 
-        </Screen>
+                { error && (
+                    <>
+                    <AppText>Couldnt Retrieve the Listings...</AppText>
+                    <AppButton title="Retry" onPress={loadListings} />
+                    </>
+                )}
+
+
+                <FlatList
+                    data={listings}
+                    keyExtractor={listing => listing.id.toString()}
+                    renderItem={({ item }) =>
+                        <Card
+                            imageUrl={item.images[0].url}
+                            thumbnailUrl={item.images[0].thumbnailUrl}
+                            onPress={()=>navigation.navigate(routes.LISTING_DETAILS, item)}
+                            subTitle={"$" + item.price}
+                            title={item.title}
+                        />
+                    }
+                />
+
+            </Screen>
+        </>
     )
 }
 

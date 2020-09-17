@@ -1,19 +1,20 @@
 import React from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 
 import LottieView from 'lottie-react-native';
 
-function AppActivityIndicator({ action, loop, onAnimationFinish, visible = false }) {
+function AppActivityIndicator({ action, loop, size, onAnimationFinish, visible = false }) {
     if (!visible) return null;
     
+    if (!size) {
+        size = {height: 100, width: 100}
+    }
+
     if (action == 'loading') {
         return (
-            <View>
-                <Image 
-                    style={{
-                        height: 300,
-                        width: 300,
-                    }}
+            <View style={styles.overlay}>
+                <Image
+                    style={size}
                     source={require('../assets/animations/loader.gif' )}
                 />
             </View>
@@ -32,4 +33,16 @@ function AppActivityIndicator({ action, loop, onAnimationFinish, visible = false
     }
 }
 
+const styles = StyleSheet.create({
+    overlay: {
+        backgroundColor: 'white',
+        alignItems: "center",
+        height: "100%",
+        justifyContent: 'center',
+        position: "absolute",
+        width: "100%",
+        zIndex: 1,
+        opacity: 0.4
+    }
+})
 export default AppActivityIndicator;
