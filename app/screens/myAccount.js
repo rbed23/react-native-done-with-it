@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { StyleSheet, FlatList, View } from 'react-native'
 
 import Screen from '../components/Screen'
@@ -8,17 +8,11 @@ import ListItemSeparator from '../components/ListItemSeparator'
 
 import colors from '../globals/colors';
 import routes from '../navigation/routes';
-import AuthContext from '../auth/context';
-import authStorage from '../auth/storage';
+import useAuth from '../hooks/useAuth';
 
 export default function Account({ navigation }) {
 
-    const { user, setUser } = useContext(AuthContext);
-
-    const handleLogout = () => {
-        setUser(null);
-        authStorage.removeToken();
-    }
+    const { user, logout } = useAuth();
 
     const menuItems = [
         {
@@ -84,7 +78,7 @@ export default function Account({ navigation }) {
                                 size={50}
                             />
                         }
-                        onPress={handleLogout}
+                        onPress={() => logout()}
                     />
                 
             </View>

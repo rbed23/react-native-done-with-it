@@ -9,25 +9,22 @@ import AuthNavigator from './app/navigation/authNavigator';
 import OfflineNotice from './app/components/OfflineNotice';
 import AuthContext from './app/auth/context';
 import authStorage from './app/auth/storage';
-import JwtDecode from 'jwt-decode';
 
 export default function App() {
 
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
-  const restoreToken = async () => {
-    console.log('getting token...')
-    const token = await authStorage.getToken();
-    if (!token) return;
-    setUser(JwtDecode(token));
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    return (user) ? setUser(user) : null;
   };
 
   
   if (!isReady)
     return (
       <AppLoading
-        startAsync={restoreToken}
+        startAsync={restoreUser}
         onFinish={() => setIsReady(true)}
       />
     );
