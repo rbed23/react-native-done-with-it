@@ -7,11 +7,11 @@ const apiClient = create({
     timeout: 5000,
 })
 
-apiClient.addAsyncRequestTransform = async (request) => {
+apiClient.addAsyncRequestTransform(async(request) => {
     const authToken = await authStorage.getToken();
     if (!authToken) return null;
     request.headers['x-auth-token'] = authToken;
-}
+});
 
 const get = apiClient.get;
 apiClient.get = async ( url, params, axiosConfig) => {

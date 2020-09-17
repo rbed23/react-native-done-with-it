@@ -1,5 +1,14 @@
 {
   "expo": {
+    "android": {
+      "package": "com.expo.donewithit",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyCmLru7l-31iCeuWxdqVf8mSYCjFCpaRNk"
+        }
+      }
+    },
     "name": "done-with-it",
     "slug": "done-with-it",
     "version": "1.0.0",
