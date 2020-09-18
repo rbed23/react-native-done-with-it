@@ -8,8 +8,7 @@ import expoPushTokensApi from '../api/expoPushTokens';
 export default useNotifications = (notificationListener) =>{
     useEffect(() => {
         registerPushNotifications();
-
-        if (notificationListener) Notifications.addListener(notificationListener);
+        //if (notificationListener) Notifications.addListener(notificationListener);
     }, []);
 
     const registerPushNotifications = async () => {

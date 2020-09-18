@@ -7,7 +7,8 @@
         "googleSignIn": {
           "apiKey": "AIzaSyCmLru7l-31iCeuWxdqVf8mSYCjFCpaRNk"
         }
-      }
+      },
+      "useNextNotificationsApi": true
     },
     "name": "done-with-it",
     "slug": "done-with-it",

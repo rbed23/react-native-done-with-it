@@ -4,11 +4,15 @@ import { Image } from 'react-native-expo-image-cache';
 import colors from '../globals/colors';
 import ListItem from '../components/ListItem';
 import AppText from '../components/AppText';
+import Screen from '../components/Screen';
 
 function ItemDetails({ route }) {
     const listing = route.params;
     return (
-        <View style={styles.container}>
+        <Screen>
+
+        {/* <View style={styles.container}> */}
+        <View>
             <Image
                 style={styles.image}
                 uri={listing.images[0].url}
@@ -25,8 +29,10 @@ function ItemDetails({ route }) {
                 image={require('../assets/mosh.jpg')}
                 title="Mosh"
                 subTitle="22 Listings"
-            />
+                />
         </View>
+        
+        </Screen>
     );
 }
 
