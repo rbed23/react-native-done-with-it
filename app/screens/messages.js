@@ -52,8 +52,11 @@ function Messages() {
                 }
                 ItemSeparatorComponent={ListItemSeparator}
                 refreshing={refreshing}
-                onRefresh={() => 
-                    setMessages([...messages, {id: 3, title: 'test_refresh'}])}
+                onRefresh={() => {
+                    setRefreshing(true)
+                    setMessages([...messages, {id: 3, title: 'test_refresh'}])
+                    setRefreshing(false)
+                }}
                 
             />
         </Screen>

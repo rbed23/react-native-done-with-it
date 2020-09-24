@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import { useFormikContext } from 'formik';
 
@@ -11,16 +12,18 @@ export default function AppFormField({ name, fieldWidth, style, ...otherProps })
 
     return (
     <>
-        <AppInput 
-            fieldWidth={fieldWidth}
-            onBlur={()=> setFieldTouched(name)}
-            onChangeText={text => setFieldValue(name, text)}
-            value={values[name]}
-            {...otherProps}
-        />
-        <ErrorMssg
-            error={errors[name]}
-            visible={touched[name]}/>
+        <View style={style}>
+            <AppInput 
+                fieldWidth={fieldWidth}
+                onBlur={()=> setFieldTouched(name)}
+                onChangeText={text => setFieldValue(name, text)}
+                value={values[name]}
+                {...otherProps}
+                />
+            <ErrorMssg
+                error={errors[name]}
+                visible={touched[name]}/>
+        </View>
     </>
     )
 }

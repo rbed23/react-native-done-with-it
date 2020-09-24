@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { StyleSheet, View, TextInput } from 'react-native'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -6,8 +6,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defaultStyles from '../globals/styles';
 
 export default function AppInput( { icon, fieldWidth, ...otherProps } ) {
-
-    const [firstName, setFirstName] = useState('')
 
     return (
         <View style={[styles.container, {width: fieldWidth}]}>

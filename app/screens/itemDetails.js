@@ -1,61 +1,128 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Keyboard, Alert, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Image } from 'react-native-expo-image-cache';
+
+import * as Notifications from 'expo-notifications';
+import * as Yup from 'yup';
+
 import colors from '../globals/colors';
 import ListItem from '../components/ListItem';
 import AppText from '../components/AppText';
-import Screen from '../components/Screen';
+import { AppForm, AppFormField, AppFormSubmitButton } from '../components/forms';
+import messageApi from '../api/messages';
+
+
+const validationSchema = Yup.object().shape({
+    message: Yup.string().required().min(10).label('message'),
+});
+
 
 function ItemDetails({ route }) {
+    
     const listing = route.params;
-    return (
-        <Screen>
 
-        {/* <View style={styles.container}> */}
-        <View>
-            <Image
-                style={styles.image}
-                uri={listing.images[0].url}
-                preview={{uri: listing.images[0].thumbnailUrl}}
-                tint="light"
-            />
-            <AppText style={styles.text}>
-                {listing.title}
-            </AppText>
-            <AppText style={styles.subText}>
-                ${listing.price}
-            </AppText>
-            <ListItem 
-                image={require('../assets/mosh.jpg')}
-                title="Mosh"
-                subTitle="22 Listings"
-                />
-        </View>
+    const handleSend = async (formData) => {
+        const response = await Notifications.scheduleNotificationAsync({
+            content: {
+                title: "You have received a new message!",
+                body: formData.message
+            },
+            trigger: null,
+        });
         
-        </Screen>
+        console.log('notification sent', response)
+    }
+
+    const handleSubmit = async (formData) => {
+        Keyboard.dismiss();
+        try {
+            const result = await messageApi.sendMessage(formData);
+            handleSend(formData);
+
+        } catch (error) {
+            console.log(error)
+            return Alert.alert("Error", "Could not send message to user.");
+        }
+        
+        
+    }
+
+    return (
+
+        
+        <KeyboardAvoidingView
+            behavior="position"
+            keyboardVerticalOffset={Platform.OS === "android" ? 180 : 0}
+        >
+            <View style={styles.container}>
+                <Image
+                    preview={{uri: listing.images[0].thumbnailUrl}}
+                    style={styles.image}
+                    tint="light"
+                    uri={listing.images[0].url}
+                />
+                <AppText style={styles.text}>
+                    {listing.title}
+                </AppText>
+
+                <AppText style={styles.subText}>
+                    ${listing.price}
+                </AppText>
+
+                <ListItem 
+                    image={require('../assets/mosh.jpg')}
+                    title="Mosh"
+                    subTitle="22 Listings"
+                    />
+
+                <AppForm
+                    initialValues={{message: '', listingId: listing.id}}
+                    onSubmit={handleSubmit}
+                    validationSchema={validationSchema}
+                    >
+
+                    <AppFormField
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        icon='message'
+                        fieldWidth="100%"
+                        name='message'
+                        placeholder='Message Seller...'
+                        style={styles.messagesArea}
+                        textContentType="none"
+                    />
+
+                    <AppFormSubmitButton 
+                        title="Contact Seller"
+                    />
+                </AppForm>
+            </View>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles=StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: colors.white,
+        padding: 10,
     },
     image: {
         resizeMode: 'contain',
         width: '100%',
-        height: 300,    
+        height: 200,    
     },
     text: {
-        marginLeft: 20,
+        marginTop: 20,
         fontSize: 20,
         fontWeight: 'bold',
     },
     subText: {
-        marginLeft: 20,
         color: colors.secondary,
-        marginTop: 10,
-        fontSize: 22,
+        fontSize: 20,
+    },
+    messagesArea: {
+        marginBottom: 10,
+        marginTop: 20,
     }
 
 })

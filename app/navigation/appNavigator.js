@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Notifications from 'expo-notifications';
 
 import colors from '../globals/colors';
 import ListingEdit from '../screens/listingEdit';
@@ -20,7 +20,16 @@ const AppNavigator = () => {
     const test = () =>
             navigation.navigate('Account')
     
-    useNotifications(test);
+    //useNotifications(test);
+    useNotifications();
+    
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+            shouldShowAlert: true,
+            shouldPlaySound: true,
+            shouldSetBadge: false,
+        })
+      });
 
     return (
         <BottomTab.Navigator
@@ -55,17 +64,5 @@ const AppNavigator = () => {
         </BottomTab.Navigator>
     )
 };
-
-const styles = StyleSheet.create({
-    editIcon: {
-        backgroundColor: colors.primary,
-        height: 50,
-        width: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20,
-    }
-});
 
 export default AppNavigator;

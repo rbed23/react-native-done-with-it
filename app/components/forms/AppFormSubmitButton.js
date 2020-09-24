@@ -5,15 +5,15 @@ import { useFormikContext } from 'formik';
 import AppButton from '../AppButton';
 
 
-export default function AppSubmitButton({ title }) {
+export default function AppSubmitButton({ title, style }) {
     
     const { handleSubmit } = useFormikContext();
 
     return (
         <AppButton 
-            title={title}
             onPress={handleSubmit}
-            style={{marginTop: 20}}
+            style={style}
+            title={title}
         />
     )
 }

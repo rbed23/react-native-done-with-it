@@ -5,17 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/home';
 import Login from '../screens/login';
 import Register from '../screens/register';
-import colors from '../globals/colors';
+import styles from '../globals/styles';
 
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-    <Stack.Navigator
-        initialRouteName="Welcome"
-        screenOptions={{
-            headerStyle: { backgroundColor: colors.primary },
-            headerTintColor: colors.white,
-        }}    
+    <Stack.Navigator 
+      initialRouteName="Welcome"
+      screenOptions={styles.headerOptions}
     >
         <Stack.Screen
             component={Home} 

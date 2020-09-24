@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AppLoading } from 'expo';
+import * as Notifications from 'expo-notifications';
 
 import navigationTheme from './app/navigation/navigationTheme';
 import AppNavigator from './app/navigation/appNavigator';
@@ -21,7 +23,6 @@ export default function App() {
     return (user) ? setUser(user) : null;
   };
 
-  
   if (!isReady)
     return (
       <AppLoading
@@ -36,7 +37,6 @@ export default function App() {
       <NavigationContainer ref={navigationRef} theme={navigationTheme}>
         { user ? <AppNavigator /> : <AuthNavigator /> }
       </NavigationContainer>
-
     </AuthContext.Provider>
   );
 }
