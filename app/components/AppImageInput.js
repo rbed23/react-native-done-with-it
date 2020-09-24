@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 import colors from '../globals/colors';
+import logger from '../utility/logger';
 
 
 function AppImageInput({ imageUri, onChangeImage }) {
@@ -37,7 +38,7 @@ function AppImageInput({ imageUri, onChangeImage }) {
           if (!result.cancelled)
             onChangeImage(result.uri);
         } catch (error) {
-          console.log('Error reading image', error)
+          logger.log('Error reading image', error)
         }
       }
     

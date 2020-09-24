@@ -4,6 +4,7 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 
 import expoPushTokensApi from '../api/expoPushTokens';
+import logger from '../utility/logger';
 
 export default useNotifications = (notificationListener) =>{
     
@@ -19,7 +20,7 @@ export default useNotifications = (notificationListener) =>{
             const token = await Notifications.getExpoPushTokenAsync();
             expoPushTokensApi.registerPushToken(token);
         } catch (error) {
-            console.log(error)
+            logger.log(error)
         }
     };
 };

@@ -6,6 +6,7 @@ import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import ListItemSeparator from '../components/ListItemSeparator';
 import ListItemDeleteAction from '../components/ListItemDeleteAction';
+import logger from '../utility/logger';
 
 
 const initialMessages = [
@@ -42,7 +43,7 @@ function Messages() {
                         subTitle={arg.item.description}
                         image={arg.item.image}
                         showChevrons={true}
-                        onPress={() => console.log('item pressed: ', arg.item)}
+                        onPress={() => logger.log('item pressed: ', arg.item)}
                         swipeRight={()=> 
                             <ListItemDeleteAction
                                 onPress={() => handleDelete(arg.item)}

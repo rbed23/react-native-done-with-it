@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AppLoading } from 'expo';
-import * as Notifications from 'expo-notifications';
 
 import navigationTheme from './app/navigation/navigationTheme';
 import AppNavigator from './app/navigation/appNavigator';
@@ -12,6 +10,11 @@ import OfflineNotice from './app/components/OfflineNotice';
 import AuthContext from './app/auth/context';
 import authStorage from './app/auth/storage';
 import { navigationRef } from './app/navigation/rootNavigation';
+import logger from './app/utility/logger';
+
+
+logger.start();
+
 
 export default function App() {
 

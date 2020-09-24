@@ -9,6 +9,8 @@ import ListItemSeparator from '../components/ListItemSeparator'
 import colors from '../globals/colors';
 import routes from '../navigation/routes';
 import useAuth from '../hooks/useAuth';
+import logger from '../utility/logger';
+
 
 export default function Account({ navigation }) {
 
@@ -21,7 +23,7 @@ export default function Account({ navigation }) {
                 name: 'format-list-bulleted',
                 backgroundColor: colors.primary,
             },
-            targetScreen: ()=>console.log('clicked on My Listings'),
+            targetScreen: ()=>logger.log('clicked on My Listings'),
         },
         {
             title: "My Messages",
@@ -39,7 +41,7 @@ export default function Account({ navigation }) {
                 title={user.name}
                 subTitle={user.email}
                 image={require('../assets/mosh.jpg')}
-                onPress={()=>console.log('clicked on Mosh')}
+                onPress={()=>logger.log('clicked on Mosh')}
             />
             </View>
 

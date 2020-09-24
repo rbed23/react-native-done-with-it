@@ -10,6 +10,7 @@ import ListItem from '../components/ListItem';
 import AppText from '../components/AppText';
 import { AppForm, AppFormField, AppFormSubmitButton } from '../components/forms';
 import messageApi from '../api/messages';
+import logger from '../utility/logger';
 
 
 const validationSchema = Yup.object().shape({
@@ -30,7 +31,7 @@ function ItemDetails({ route }) {
             trigger: null,
         });
         
-        console.log('notification sent', response)
+        logger.log('notification sent', response)
     }
 
     const handleSubmit = async (formData) => {
@@ -40,7 +41,7 @@ function ItemDetails({ route }) {
             handleSend(formData);
 
         } catch (error) {
-            console.log(error)
+            logger.log(error)
             return Alert.alert("Error", "Could not send message to user.");
         }
         
