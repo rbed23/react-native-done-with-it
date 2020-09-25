@@ -3,11 +3,6 @@
     "android": {
       "package": "com.expo.donewithit",
       "googleServicesFile": "./google-services.json",
-      "config": {
-        "googleSignIn": {
-          "apiKey": "AIzaSyCmLru7l-31iCeuWxdqVf8mSYCjFCpaRNk"
-        }
-      },
       "useNextNotificationsApi": true
     },
     "name": "done-with-it",
